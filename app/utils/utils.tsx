@@ -1,5 +1,8 @@
-import { Button } from "antd";
+
 import { ColumnGroupType, ColumnType } from "antd/es/table";
+
+
+export const underConstruct = "https://reseau-ehpad-paysbasque.org/wp-content/uploads/2021/06/enconstruction-1536x724.png;"
 
 
 const checkEveryField = (item: any, filter: string): boolean => {
@@ -53,4 +56,6 @@ const checkEveryField = (item: any, filter: string): boolean => {
           });
         }
         return columns;
-      }
+    }
+
+    

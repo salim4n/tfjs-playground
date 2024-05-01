@@ -1,6 +1,6 @@
 "use client"
 
-import {  HomeOutlined, InboxOutlined, LineChartOutlined } from "@ant-design/icons";
+import {  EyeInvisibleTwoTone, EyeTwoTone, HomeOutlined, InboxOutlined, LineChartOutlined, SoundFilled } from "@ant-design/icons";
 import {  Layout, Menu, MenuProps, theme } from "antd";
 import { Content, Footer, Header } from "antd/es/layout/layout";
 import Link from "next/link";
@@ -20,14 +20,19 @@ export default function PageLayout({children}: Readonly<{children: React.ReactNo
           icon: <Link href={"/"}><HomeOutlined /></Link>,
         },
         {
-          label: 'Reg Lineaire',
+          label: 'Boston Housing',
           key: 'Chapter1',
           icon: <Link href={"/chapter1"}><LineChartOutlined/></Link>,
         },
         {
-          label: 'Multi-Classe',
+          label: 'Computer Vision',
           key: 'Chapter2',
-          icon: <Link href={"/chapter2"}><InboxOutlined /></Link>,
+          icon: <Link href={"/chapter2"}><EyeTwoTone /></Link>,
+        },
+        {
+          label: 'Audio Processing',
+          key: 'Chapter3',
+          icon: <Link href={"/chapter3"}><SoundFilled/></Link>,
         },
       ];
 

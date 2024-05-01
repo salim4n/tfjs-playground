@@ -2,18 +2,19 @@
 
 import * as tf from '@tensorflow/tfjs'
 import * as tfvis from '@tensorflow/tfjs-vis'
-import { Button, Spin, Table } from 'antd';
-import { useState } from 'react'
-import { generateColumns } from '../utils/utils';
+import { Button, Empty, Spin, Table } from 'antd';
+import {  useState } from 'react'
+import { generateColumns, underConstruct } from '../utils/utils';
 
 export default function Chapter1(){
 
     const [data, setData] = useState<tf.TensorContainer[]>()
-    const [display, setDisplay] = useState<any>()
     const [columnsName, setColumnsName] = useState<string[]>()
     const [loading, setLoading] = useState<boolean>(false)
     const visor = tfvis.visor();
     visor.el.style.color = 'black';
+
+
 
     const csvUrl =
     'https://storage.googleapis.com/tfjs-examples/multivariate-linear-regression/data/boston-housing-train.csv';
@@ -25,41 +26,46 @@ export default function Chapter1(){
     setColumnsName(names)
     const dataToDispalay = await csvDataset.toArray()
     setData(dataToDispalay)
+
     const name = 'Data from CSV'
+    tfvis.render.table({name,tab:"Info"}, {
+      headers: names,
+      values: dataToDispalay.map((d: any) => Object.values(d))
+    });
     tfvis.render.linechart({name,tab:"LineChart"}, {values: dataToDispalay.map((d: any) => ({x: d.lstat, y: d.medv}))}, {xLabel: 'LSTAT', yLabel: 'MEDV', height: 300})
     tfvis.render.scatterplot({name, tab:"ScatterPlot"}, {values: dataToDispalay.map((d: any) => ({x: d.lstat, y: d.medv}))}, {xLabel: 'LSTAT', yLabel: 'MEDV', height: 300})
     setLoading(false)
   }
 
   async function createModel(){
-    const model = tf.sequential();
-    model.add(tf.layers.dense({units: 1, inputShape: [12]}));
-    model.compile({loss: 'meanSquaredError', optimizer: 'adam'})
-    const surfaceModel = {name: 'Model Summary', tab: 'Model'}
-    tfvis.show.modelSummary(surfaceModel, model)
     const csvDataset = tf.data.csv(
       csvUrl, {
         columnConfigs: {
           medv: {
             isLabel: true
           },
-          zn:{
-            required:false
-          },
-          indus:{
-            required:false
-          },
-
-
         }
-      });
+      }).batch(32).shuffle(1000);
 
-      const history = await model.fitDataset(csvDataset, {
-        epochs: 4,
-        callbacks: {
-          onEpochEnd: (epoch, logs) => console.log(logs.loss)
-        }
-      });
+    const numFeatures = columnsName.length - 1; // Excluding the label column
+
+    console.log('Nombre de caractéristiques:', numFeatures);
+
+    // Affichez un échantillon des données pour vérifier la structure
+    csvDataset.take(1).forEachAsync(sample => console.log('Échantillon de données:', sample));
+    const model = tf.sequential();
+    model.add(tf.layers.dense({ units: 64, inputShape: [numFeatures], activation: 'relu' }));
+    model.add(tf.layers.dense({ units: 1 }));
+    model.compile({loss: 'meanSquaredError', optimizer: 'adam'});
+    
+    tfvis.show.modelSummary({name: 'Model Summary', tab: 'Model'}, model);
+    tfvis.show.layer({name: 'Input', tab: 'Model'},model);
+    const history = await model.fitDataset(csvDataset, {
+      epochs: 4,
+      callbacks: {
+        onEpochEnd: (epoch, logs) => console.log(logs.loss)
+      }
+    });
   }
 
 
@@ -74,9 +80,10 @@ return (
         <Table dataSource={data} columns={generateColumns(data)} />
         </>
       ):(
+        <><Empty image={underConstruct} description="" />
         <Button type='primary' onClick={run}>
-        Load Boston Housing Dataset
-    </Button>
+          Load Boston Housing Dataset
+        </Button></>
       )}
     </div>
       )
