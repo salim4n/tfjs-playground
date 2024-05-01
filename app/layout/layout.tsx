@@ -1,8 +1,7 @@
 "use client"
 
-import {  EyeInvisibleTwoTone, EyeTwoTone, HomeOutlined, InboxOutlined, LaptopOutlined, LineChartOutlined, NotificationOutlined, SoundFilled, UserOutlined } from "@ant-design/icons";
+import {  EyeTwoTone, HomeOutlined, LineChartOutlined, SoundFilled } from "@ant-design/icons";
 import {  Layout, Menu, MenuProps, theme } from "antd";
-import Sider from "antd/es/layout/Sider";
 import { Content, Footer, Header } from "antd/es/layout/layout";
 import Link from "next/link";
 import React from "react";
