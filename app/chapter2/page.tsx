@@ -11,11 +11,7 @@ export default function Chapter2(){
 
     const [visor, setVisor] = useState<any>()
     const [loading, setLoading] = useState<boolean>(false)
-    const canvasRef = useRef<CanvasRenderingContext2D>(null)
     const [datasetImages, setDatasetImages] = useState<any>();
-    const [trainImages, setTrainImages] = useState<Float32Array>();
-    const [testImages, setTestImages] = useState<Float32Array>();
-    const [trainLabels, setTrainLabels] = useState<Uint8Array>();
     const IMAGE_H = 28;
     const IMAGE_W = 28;
     const IMAGE_SIZE = IMAGE_H * IMAGE_W;
