@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { AntdRegistry } from '@ant-design/nextjs-registry';
-import PageLayout from "./layout/page";
+import PageLayout from "./layout/layout";
 import { ConfigProvider } from "antd";
 
 const inter = Inter({ subsets: ["latin"] });
