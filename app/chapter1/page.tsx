@@ -3,21 +3,23 @@
 import * as tf from '@tensorflow/tfjs'
 import * as tfvis from '@tensorflow/tfjs-vis'
 import { Button, Empty, Spin, Table } from 'antd';
-import {  useState } from 'react'
+import {  useEffect, useState } from 'react'
 import { generateColumns, underConstruct } from '../utils/utils';
 
 export default function Chapter1(){
 
     const [data, setData] = useState<tf.TensorContainer[]>()
+    const [visor, setVisor] = useState<any>()
     const [columnsName, setColumnsName] = useState<string[]>()
     const [loading, setLoading] = useState<boolean>(false)
-    const visor = tfvis.visor();
-    visor.el.style.color = 'black';
-
-
-
     const csvUrl =
     'https://storage.googleapis.com/tfjs-examples/multivariate-linear-regression/data/boston-housing-train.csv';
+
+    useEffect(() => {
+      const visor = tfvis.visor();
+      visor.el.style.color = 'black';
+      setVisor(visor)
+    }, [])
     
     async function run(){
     setLoading(true)

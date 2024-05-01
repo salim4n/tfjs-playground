@@ -3,7 +3,7 @@
 import * as tf from '@tensorflow/tfjs'
 import * as tfvis from '@tensorflow/tfjs-vis'
 import { Button, Spin, Table } from 'antd';
-import {  useState } from 'react'
+import {  useEffect, useState } from 'react'
 import { generateColumns } from './utils/utils';
 
 
@@ -12,8 +12,13 @@ export default function Home() {
   const [data, setData] = useState<tf.TensorContainer[]>()
   const [loading, setLoading] = useState<boolean>(false)
   const [model, setModel] = useState<tf.Sequential | null>(null)
-  const visor = tfvis.visor();
-  visor.el.style.color = 'black';
+  const [visor, setVisor] = useState<any>()
+
+  useEffect(() => {
+      const visor = tfvis.visor();
+      visor.el.style.color = 'black';
+      setVisor(visor)
+    }, [])
   
   async function run(){
     setLoading(true)
