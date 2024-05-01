@@ -7,7 +7,7 @@ import Link from "next/link";
 
 type MenuItem = Required<MenuProps>['items'][number];
 
-export default function PageLayout({children}: Readonly<{children: React.ReactNode;}>) {
+export default function PageLayout({ children }: { children: React.ReactNode }) {
 
     const {
         token: { colorBgContainer, borderRadiusLG },
