@@ -1,59 +1,96 @@
 "use client";
+import { drawRect } from "../utils/utils";
+import '@tensorflow/tfjs-backend-cpu';
+import '@tensorflow/tfjs-backend-webgl';
+import { useRef, useEffect, useState } from 'react';
+import Webcam from 'react-webcam';
 
-import { Button, Card, Empty, Spin } from "antd";
-import { underConstruct } from "../utils/utils";
-import * as tf from '@tensorflow/tfjs'
-import * as tfvis from '@tensorflow/tfjs-vis'
-import { useEffect, useRef, useState } from "react";
+import {
+    load as cocoSSDLoad,
+    type ObjectDetection,
+  } from '@tensorflow-models/coco-ssd';
 
+import * as tf from '@tensorflow/tfjs';
 
-export default function Chapter2(){
+export default  function Chapter2(){
 
-    const [visor, setVisor] = useState<any>()
-    const [loading, setLoading] = useState<boolean>(false)
-    const [datasetImages, setDatasetImages] = useState<any>();
-    const IMAGE_H = 28;
-    const IMAGE_W = 28;
-    const IMAGE_SIZE = IMAGE_H * IMAGE_W;
-    const NUM_CLASSES = 10;
-    const NUM_DATASET_ELEMENTS = 65000;
-    const NUM_TRAIN_ELEMENTS = 55000;
-    const NUM_TEST_ELEMENTS = NUM_DATASET_ELEMENTS - NUM_TRAIN_ELEMENTS;
-    const MNIST_IMAGES_SPRITE_PATH =
-       'https://storage.googleapis.com/learnjs-data/model-builder/mnist_images.png';
-    const MNIST_LABELS_PATH =
-       'https://storage.googleapis.com/learnjs-data/model-builder/mnist_labels_uint8';
+    const webcamRef = useRef<Webcam>(null);
+    const canvasRef = useRef<HTMLCanvasElement>(null);
+    let detectInterval: NodeJS.Timer;
 
+    async function runCoco() {
+        // Load network
+        const net = await cocoSSDLoad();
+    
+        //  Loop to detect objects
+        detectInterval = setInterval(() => {
+          runObjectDetection(net);
+        }, 100);
+      }
 
+      function showMyVideo() {
+        if (
+          webcamRef.current !== null &&
+          webcamRef.current.video?.readyState === 4
+        ) {
+          // Get video properties
+          const myVideoWidth = webcamRef.current.video.videoWidth;
+          const myVideoHeight = webcamRef.current.video.videoHeight;
+    
+          // Set video width and height
+          webcamRef.current.video.width = myVideoWidth;
+          webcamRef.current.video.height = myVideoHeight;
+        }
+      }
+
+      async function runObjectDetection(net: ObjectDetection) {
+        if (
+          canvasRef.current &&
+          webcamRef.current !== null &&
+          webcamRef.current.video?.readyState === 4
+        ) {
+          // Set canvas height and width
+          canvasRef.current.width = webcamRef.current.video.videoWidth;
+          canvasRef.current.height = webcamRef.current.video.videoHeight;
+    
+          // Make detections
+          const detectedObjects = await net.detect(
+            webcamRef.current.video,
+            undefined,
+            0.5,
+          );
+    
+          console.log('Detect data: ', detectedObjects);
+    
+          // Draw mesh
+          const context = canvasRef.current.getContext('2d');
+    
+          if (context) {
+            // Update drawing utility
+            drawRect(detectedObjects, context);
+          }
+        }
+      }
+
+      
     useEffect(() => {
-        const visor = tfvis.visor();
-        visor.el.style.color = 'black';
-        setVisor(visor)
-      }, [])
+        showMyVideo();
+        runCoco();
 
-      useEffect(() => {
-        (async () => {
-            setLoading(true)
-            const [images, labels] = await Promise.all([
-                fetch(MNIST_IMAGES_SPRITE_PATH).then(response => response.arrayBuffer()),
-                fetch(MNIST_LABELS_PATH).then(response => response.arrayBuffer())
-            ]);
-            setDatasetImages(new Uint8Array(images))
-            const datasetLabels = new Uint8Array(labels);
-            console.log(datasetLabels)
-            console.log(datasetImages[12])
-            setLoading(false)
-        })();
-       
+        return () => {
+            tf.disposeVariables()
+        }
     }, []);
-
-    if(loading) return <Spin fullscreen={true} tip="Loading"/>
 
     return (
         <div className="flex flex-col items-center justify-center h-screen">
-            <Empty image={underConstruct} description="" />
-            <div className="flex flex-row">
-            </div>
+                <canvas ref={canvasRef} className="absolute   ">
+                </canvas>
+                <Webcam
+                className="rounded-lg"
+                ref={webcamRef}
+                audio={false}
+                />
         </div>
     )
 
