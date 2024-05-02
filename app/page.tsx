@@ -18,6 +18,10 @@ export default function Home() {
       const visor = tfvis.visor();
       visor.el.style.color = 'black';
       setVisor(visor)
+
+      return () => {
+        tf.disposeVariables()
+    }
     }, [])
   
   async function run(){
