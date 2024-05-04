@@ -5,6 +5,7 @@ import * as tfvis from '@tensorflow/tfjs-vis'
 import { Button, Spin, Table } from 'antd';
 import {  useEffect, useState } from 'react'
 import { generateColumns } from './utils/utils';
+import {  drawHistogram, drawModelSummary, drawTable, drawScatterPlot, drawLine, drawBarChartOfEachFeatureOfOneDataset, drawConfusionMatrix, drawHeatMap } from './utils/visor/draw';
 
 
 export default function Home() {
@@ -36,15 +37,14 @@ export default function Home() {
     }))
     setData(dataToDispalay)
     const name = 'Data Generated'
-    tfvis.render.table({name,tab:"Info"}, {
-      headers: ['a', 'b', 'c', 'd', 'e'],
-      values: dataToDispalay.map((d: any) => Object.values(d))
-    });
-
-    tfvis.render.histogram({name,tab:"Histogram Label"}, dataToDispalay.map((d: any) => d.e), {height: 300})
-    const dataHeatmap = dataToDispalay.map((d: any) => [d.a, d.b, d.c, d.d])as unknown as tfvis.HeatmapData;
-    })
+    drawTable(dataToDispalay, name, 'Data Table')
+    drawHistogram(dataToDispalay, name, 'Data Histogram')
+    drawScatterPlot(dataToDispalay, name, 'Data Scatter Plot')
+    drawLine(dataToDispalay, name, 'Data Line Plot')
+    drawBarChartOfEachFeatureOfOneDataset(dataToDispalay, name, 'Data Bar Chart')
+    drawHeatMap(dataToDispalay, name, 'Data Heat Map')
     setLoading(false)
+  })
   }
 
   async function createModel(){
@@ -53,8 +53,7 @@ export default function Home() {
     model.add(tf.layers.dense({ units: 64, inputShape: [4], activation: 'relu' }));
     model.add(tf.layers.dense({ units: 1 }));
     model.compile({loss: 'meanSquaredError', optimizer: 'adam'});
-    tfvis.show.modelSummary({name: 'Model Summary', tab: 'Model'}, model);
-    tfvis.show.layer({name: 'Input', tab: 'Model'},model);
+    drawModelSummary(model, 'Model Summary', 'Model Summary')
     setLoading(false)
 
     const features = data.map((d: any) => [d.a, d.b, d.c, d.d])

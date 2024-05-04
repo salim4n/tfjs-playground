@@ -4,7 +4,8 @@ import * as tf from '@tensorflow/tfjs'
 import * as tfvis from '@tensorflow/tfjs-vis'
 import { Button, Empty, Spin, Table } from 'antd';
 import {  useEffect, useState } from 'react'
-import { generateColumns, underConstruct } from '../utils/utils';
+import { generateColumns, normalizeData, underConstruct } from '../utils/utils';
+import { drawBarChartOfEachFeatureOfOneDataset, drawHeatMap, drawHistogram, drawLine, drawScatterPlot, drawTable } from '../utils/visor/draw';
 
 export default function Chapter1(){
 
@@ -33,13 +34,15 @@ export default function Chapter1(){
     const dataToDispalay = await csvDataset.toArray()
     setData(dataToDispalay)
 
-    const name = 'Data from CSV'
-    tfvis.render.table({name,tab:"Info"}, {
-      headers: names,
-      values: dataToDispalay.map((d: any) => Object.values(d))
-    });
-    tfvis.render.linechart({name,tab:"LineChart"}, {values: dataToDispalay.map((d: any) => ({x: d.lstat, y: d.medv}))}, {xLabel: 'LSTAT', yLabel: 'MEDV', height: 300})
-    tfvis.render.scatterplot({name, tab:"ScatterPlot"}, {values: dataToDispalay.map((d: any) => ({x: d.lstat, y: d.medv}))}, {xLabel: 'LSTAT', yLabel: 'MEDV', height: 300})
+    const name = 'Boston Housing Dataset'
+    //normalize data
+    const dataNormalized = await normalizeData(dataToDispalay);
+    drawTable(dataNormalized as any, name, 'Data  Normalized')
+    drawHistogram(data , name, 'Data Histogram')
+    drawScatterPlot(data, name, 'Data Scatter Plot')
+    drawLine(data , name, 'Data Line Plot')
+    drawBarChartOfEachFeatureOfOneDataset(data, name, 'Data Bar Chart')
+    drawHeatMap(data , name, 'Data Heat Map')
     setLoading(false)
   }
 

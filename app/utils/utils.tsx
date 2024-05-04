@@ -1,6 +1,8 @@
 
 import { ColumnGroupType, ColumnType } from "antd/es/table";
 import { type DetectedObject } from '@tensorflow-models/coco-ssd';
+import * as tf from '@tensorflow/tfjs'
+import { TensorLike2D } from "@tensorflow/tfjs-core/dist/types";
 
 export const underConstruct = "https://reseau-ehpad-paysbasque.org/wp-content/uploads/2021/06/enconstruction-1536x724.png;"
 
@@ -83,5 +85,20 @@ const checkEveryField = (item: any, filter: string): boolean => {
         context.fillStyle = '#000000';
         context.fillText(label, x, y);
       });
+    }
+
+    export async function normalizeData(data:any){
+      // Convertir les données en Tensor
+      const tensorData = tf.tensor2d(data.map(item => Object.values(item)));
+    
+      // Calculer le min et le max pour chaque colonne
+      const min = tensorData.min(0);
+      const max = tensorData.max(0);
+
+
+      // Normaliser les données
+      const normalizedData = tensorData.sub(min).div(max.sub(min));
+
+      return normalizedData;
     }
     
