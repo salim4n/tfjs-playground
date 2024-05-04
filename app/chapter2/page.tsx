@@ -16,7 +16,35 @@ export default  function Chapter2(){
 
     const webcamRef = useRef<Webcam>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
+    const [cameras, setCameras] = useState([]);
     let detectInterval: NodeJS.Timer;
+
+    useEffect(() => {
+      getCameras().then(setCameras);
+    }, []);
+
+    async function getCameras() {
+      const devices = await navigator.mediaDevices.enumerateDevices();
+      return devices.filter(device => device.kind === 'videoinput');
+    }
+
+    function handleCameraChange(event: React.ChangeEvent<HTMLSelectElement>) {
+      const cameraId = event.target.value;
+      const constraints = {
+        video: {
+          deviceId: { exact: cameraId }
+        }
+      };
+      navigator.mediaDevices.getUserMedia(constraints).then(stream => {
+        const videoElement = webcamRef.current?.video as HTMLVideoElement;
+        if (videoElement) {
+          videoElement.srcObject = stream;
+        }
+      });
+    }
+
+
+
 
     async function runCoco() {
         // Load network
@@ -84,7 +112,14 @@ export default  function Chapter2(){
 
     return (
         <div className="flex flex-col items-center justify-center h-screen">
-                <canvas ref={canvasRef} className="absolute   ">
+            <select onChange={handleCameraChange}>
+      {cameras.map(camera => (
+        <option key={camera.deviceId} value={camera.deviceId}>
+          {camera.label}
+        </option>
+      ))}
+    </select>
+                <canvas ref={canvasRef} className="absolute">
                 </canvas>
                 <Webcam
                 className="rounded-lg"
