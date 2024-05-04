@@ -38,47 +38,55 @@ export default function Chapter1(){
     //normalize data
     const dataNormalized = await normalizeData(dataToDispalay);
     drawTable(dataNormalized as any, name, 'Data  Normalized')
-    drawHistogram(data , name, 'Data Histogram')
-    drawScatterPlot(data, name, 'Data Scatter Plot')
-    drawLine(data , name, 'Data Line Plot')
-    drawBarChartOfEachFeatureOfOneDataset(data, name, 'Data Bar Chart')
-    drawHeatMap(data , name, 'Data Heat Map')
+    drawHistogram(dataToDispalay , name, 'Data Histogram')
+    drawScatterPlot(dataToDispalay, name, 'Data Scatter Plot')
+    drawLine(dataToDispalay , name, 'Data Line Plot')
+    drawBarChartOfEachFeatureOfOneDataset(dataToDispalay, name, 'Data Bar Chart')
+    drawHeatMap(dataToDispalay , name, 'Data Heat Map')
     setLoading(false)
   }
 
-  async function createModel(){
-    const csvDataset = tf.data.csv(
-      csvUrl, {
-        columnConfigs: {
-          medv: {
-            isLabel: true
-          },
+  async function createModel() {
+    const csvDataset = tf.data.csv(csvUrl, {
+      columnConfigs: {
+        medv: {
+          isLabel: true
         }
-      }).batch(32).shuffle(1000);
-
+      },
+      columnNames: columnsName, // specify the column names
+      
+    });
+  
     const numFeatures = columnsName.length - 1; // Excluding the label column
-
+  
     console.log('Nombre de caractéristiques:', numFeatures);
-
-    // Affichez un échantillon des données pour vérifier la structure
+  
+    // Display a sample of the data to verify the structure
     csvDataset.take(1).forEachAsync(sample => console.log('Échantillon de données:', sample));
+  
     const model = tf.sequential();
-    model.add(tf.layers.dense({ units: 64, inputShape: [numFeatures], activation: 'relu' }));
+    model.add(tf.layers.dense({
+      units: 64,
+      inputShape: [numFeatures],
+      activation:'relu',
+      dtype: 'float32',
+      kernelInitializer: 'leCunNormal'
+    }));
     model.add(tf.layers.dense({ units: 1 }));
-    model.compile({loss: 'meanSquaredError', optimizer: 'adam'});
-    
-    tfvis.show.modelSummary({name: 'Model Summary', tab: 'Model'}, model);
-    tfvis.show.layer({name: 'Input', tab: 'Model'},model);
+    model.compile({ loss:'meanSquaredError', optimizer: 'adam' });
+  
+    tfvis.show.modelSummary({ name: 'Model Summary', tab: 'Model' }, model);
+    tfvis.show.layer({ name: 'Input', tab: 'Model' }, model);
+  
     const history = await model.fitDataset(csvDataset, {
       epochs: 4,
       callbacks: {
-        onEpochEnd: (epoch, logs) => console.log(logs.loss)
+        onEpochEnd: (epoch, logs) => console.log(`Epoch ${epoch + 1}, Loss: ${logs.loss}`)
       }
     });
   }
 
-
-  if(loading) return <Spin fullscreen={true} tip="Loading"/>
+if(loading) return <Spin fullscreen={true} tip="Loading"/>
 
 return (
     <div className="flex flex-col items-center justify-center h-screen">

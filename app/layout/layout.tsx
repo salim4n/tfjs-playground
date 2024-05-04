@@ -1,7 +1,7 @@
 "use client"
 
-import {  EyeTwoTone, HomeOutlined, LineChartOutlined, SoundFilled } from "@ant-design/icons";
-import {  Layout, Menu, MenuProps, theme } from "antd";
+import {  CloudFilled, EyeTwoTone, HomeOutlined, SoundFilled, WarningFilled } from "@ant-design/icons";
+import {  Layout, Menu, MenuProps, Popover, message, theme } from "antd";
 import { Content, Footer, Header } from "antd/es/layout/layout";
 import Link from "next/link";
 import React from "react";
@@ -23,7 +23,7 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
         {
           label: 'Boston Housing',
           key: 'Chapter1',
-          icon: <Link href={"/chapter1"}><LineChartOutlined/></Link>,
+          icon: <Popover content="Under construct, model not created"><Link href={"/chapter1"}><WarningFilled/></Link></Popover>,
         },
         {
           label: 'Computer Vision',
@@ -33,8 +33,14 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
         {
           label: 'Audio Processing',
           key: 'Chapter3',
-          icon: <Link href={"/chapter3"}><SoundFilled/></Link>,
+          icon: <Popover content="Under construct, nothing done, empty page"><Link href={"/chapter3"}><SoundFilled/></Link></Popover>,
         },
+        {
+          label: 'Meteo Prediction',
+          disabled: true,
+          key: 'Chapter4',
+          icon: <Popover content="Under construct, model not ready for prediction, nav can't take too much data without crash, so I disabled this page actually"><Link href={"/chapter4"}><CloudFilled/></Link></Popover>,
+        }
       ];
 
     return (
