@@ -26,12 +26,12 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
           icon: <Popover content="Under construct, model not created"><Link href={"/chapter1"}><WarningFilled/></Link></Popover>,
         },
         {
-          label: 'Computer Vision',
+          label: 'Object Detection',
           key: 'Chapter2',
           icon: <Link href={"/chapter2"}><EyeTwoTone /></Link>,
         },
         {
-          label: 'Audio Processing',
+          label: 'Speech Recognition',
           key: 'Chapter3',
           icon: <Popover content="Under construct, nothing done, empty page"><Link href={"/chapter3"}><SoundFilled/></Link></Popover>,
         },

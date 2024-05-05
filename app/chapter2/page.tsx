@@ -11,7 +11,7 @@ import {
   } from '@tensorflow-models/coco-ssd';
 
 import * as tf from '@tensorflow/tfjs';
-import { Select } from "antd";
+import { Row, Select } from "antd";
 
 export default  function Chapter2(){
 
@@ -28,8 +28,6 @@ export default  function Chapter2(){
       const devices = await navigator.mediaDevices.enumerateDevices();
       return devices.filter(device => device.kind === 'videoinput');
     }
-
-
 
     async function runCoco() {
         // Load network
@@ -92,7 +90,8 @@ export default  function Chapter2(){
 
     return (
         <div className="flex flex-col items-center justify-center h-screen">
-            <Select 
+          <Row>
+          <Select 
             options={cameras.map(camera => ({
                 label: camera.label,
                 value: camera.deviceId,
@@ -103,13 +102,16 @@ export default  function Chapter2(){
             placeholder="Select camera"
             style={{marginBottom: 20,borderRadius: 10, width: 200}}
             />
-                <canvas ref={canvasRef} className="absolute">
-                </canvas>
+          </Row>
+          <Row>
+          <canvas ref={canvasRef} className="absolute">
+            </canvas>
                 <Webcam
                 className="rounded-lg"
                 ref={webcamRef}
                 audio={false}
                 />
+          </Row>
         </div>
     )
 
