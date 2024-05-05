@@ -2,13 +2,14 @@
 "use client";
 
 import React from "react";
-import { Button, Card, Col, Descriptions, Layout, Row, Spin, message } from "antd";
+import { Button, Card, Col, Descriptions, Row, Spin } from "antd";
 import { useEffect, useState } from "react";
 import * as tf from "@tensorflow/tfjs";
 import * as speechCommands from "@tensorflow-models/speech-commands";
 import { SoundFilled } from "@ant-design/icons";
 
 export default function Chapter3() {
+    
     const [recognizer, setRecognizer] = useState(null);
     const [labels, setLabels] = useState<string[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
@@ -32,6 +33,9 @@ export default function Chapter3() {
             setLabels(res.wordLabels());
             setLoading(false);
         });
+        return () => {
+            tf.disposeVariables()
+        }
     }, []);
 
     if (loading) return <Spin fullscreen={true} tip="loading..." />;
