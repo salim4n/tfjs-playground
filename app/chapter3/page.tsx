@@ -43,7 +43,7 @@ export default function Chapter3() {
                     <Card title="Speech Commands">
                         <p>
                             Speech Commands is a dataset of 65,000 one-second long utterances
-                            of 30 short words, by thousands of different people. It was
+                            of 20 short words, by thousands of different people. It was
                             collected by Google and released under a CC BY license. It is
                             useful for benchmarking models for speech recognition. The dataset
                             is available for download from the TensorFlow Datasets catalog.
