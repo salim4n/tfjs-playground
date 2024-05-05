@@ -10,7 +10,10 @@ mkdir -p dist
 # Assure-toi que cette commande génère les fichiers dans le répertoire "dist"
 npm run build
 
-# Déplace les fichiers générés dans le répertoire "dist"
-# Assure-toi de spécifier correctement le chemin des fichiers générés
-# Ici, nous supposons que les fichiers sont déjà dans le répertoire "dist"
-mv dist/* ./dist/
+# Vérifie si des fichiers sont présents dans le répertoire "dist"
+if [ -n "$(ls -A dist)" ]; then
+  # Déplace les fichiers générés dans le répertoire "dist"
+  mv dist/* ./dist/
+else
+  echo "Aucun fichier à déplacer dans le répertoire 'dist'."
+fi
