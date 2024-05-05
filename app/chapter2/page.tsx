@@ -11,6 +11,7 @@ import {
   } from '@tensorflow-models/coco-ssd';
 
 import * as tf from '@tensorflow/tfjs';
+import { Select } from "antd";
 
 export default  function Chapter2(){
 
@@ -28,32 +29,15 @@ export default  function Chapter2(){
       return devices.filter(device => device.kind === 'videoinput');
     }
 
-    function handleCameraChange(event: React.ChangeEvent<HTMLSelectElement>) {
-      const cameraId = event.target.value;
-      const constraints = {
-        video: {
-          deviceId: { exact: cameraId }
-        }
-      };
-      navigator.mediaDevices.getUserMedia(constraints).then(stream => {
-        const videoElement = webcamRef.current?.video as HTMLVideoElement;
-        if (videoElement) {
-          videoElement.srcObject = stream;
-        }
-      });
-    }
-
-
 
 
     async function runCoco() {
         // Load network
         const net = await cocoSSDLoad();
-    
         //  Loop to detect objects
         detectInterval = setInterval(() => {
           runObjectDetection(net);
-        }, 100);
+        }, 200);
       }
 
       function showMyVideo() {
@@ -87,12 +71,8 @@ export default  function Chapter2(){
             undefined,
             0.5,
           );
-    
-          console.log('Detect data: ', detectedObjects);
-    
           // Draw mesh
           const context = canvasRef.current.getContext('2d');
-    
           if (context) {
             // Update drawing utility
             drawRect(detectedObjects, context);
@@ -112,13 +92,17 @@ export default  function Chapter2(){
 
     return (
         <div className="flex flex-col items-center justify-center h-screen">
-            <select onChange={handleCameraChange}>
-      {cameras.map(camera => (
-        <option key={camera.deviceId} value={camera.deviceId}>
-          {camera.label}
-        </option>
-      ))}
-    </select>
+            <Select 
+            options={cameras.map(camera => ({
+                label: camera.label,
+                value: camera.deviceId,
+            }))}
+            onChange={(value) => {
+                setCameras(cameras.filter(camera => camera.deviceId === value))
+            }}
+            placeholder="Select camera"
+            style={{marginBottom: 20,borderRadius: 10, width: 200}}
+            />
                 <canvas ref={canvasRef} className="absolute">
                 </canvas>
                 <Webcam
