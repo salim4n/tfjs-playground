@@ -1,6 +1,5 @@
 {
-  "build": {
-    "env": {},
-    "installCommand": "./install.sh"
-  }
+  "builds": [
+    { "src": "build.sh", "use": "@vercel/static-build" }
+  ]
 }
