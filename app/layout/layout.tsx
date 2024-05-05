@@ -1,6 +1,6 @@
 "use client"
 
-import {  CloudFilled, EyeTwoTone, HomeOutlined, SoundFilled, WarningFilled } from "@ant-design/icons";
+import {  CloudFilled, EyeTwoTone, HarmonyOSOutlined, HomeOutlined, SoundFilled, WarningFilled } from "@ant-design/icons";
 import {  Layout, Menu, MenuProps, Popover, message, theme } from "antd";
 import { Content, Footer, Header } from "antd/es/layout/layout";
 import Link from "next/link";
@@ -34,6 +34,11 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
           label: 'Speech Recognition',
           key: 'Chapter3',
           icon:<Link href={"/chapter3"}><SoundFilled/></Link>,
+        },
+        {
+          label: 'Hand Pose Detection',
+          key: 'Chapter5',
+          icon: <Link href={"/chapter5"}><HarmonyOSOutlined /></Link>,
         },
         {
           label: 'Meteo Prediction',

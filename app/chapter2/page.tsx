@@ -4,14 +4,12 @@ import '@tensorflow/tfjs-backend-cpu';
 import '@tensorflow/tfjs-backend-webgl';
 import { useRef, useEffect, useState } from 'react';
 import Webcam from 'react-webcam';
-
 import {
     load as cocoSSDLoad,
     type ObjectDetection,
   } from '@tensorflow-models/coco-ssd';
-
 import * as tf from '@tensorflow/tfjs';
-import { Row, Select } from "antd";
+import { message, Row, Select, Spin } from "antd";
 
 export default  function Chapter2(){
 
@@ -19,6 +17,7 @@ export default  function Chapter2(){
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [cameras, setCameras] = useState([]);
     let detectInterval: NodeJS.Timer;
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
       getCameras().then(setCameras);
@@ -29,13 +28,20 @@ export default  function Chapter2(){
       return devices.filter(device => device.kind === 'videoinput');
     }
 
+
     async function runCoco() {
         // Load network
+        setLoading(true);
         const net = await cocoSSDLoad();
+        setLoading(false);
+        if(net){
+            message.success('COCO-SSD model loaded successfully!')
+        }
+
         //  Loop to detect objects
         detectInterval = setInterval(() => {
           runObjectDetection(net);
-        }, 200);
+        }, 500);
       }
 
       function showMyVideo() {
@@ -91,6 +97,7 @@ export default  function Chapter2(){
     return (
         <div className="flex flex-col items-center justify-center h-screen">
           <Row>
+          <Spin spinning={loading} size="large"/>
           <Select 
             options={cameras.map(camera => ({
                 label: camera.label,
@@ -107,6 +114,7 @@ export default  function Chapter2(){
           <canvas ref={canvasRef} className="absolute">
             </canvas>
                 <Webcam
+                controls={true}
                 className="rounded-lg"
                 ref={webcamRef}
                 audio={false}
