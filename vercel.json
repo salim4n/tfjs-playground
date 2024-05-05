@@ -1,5 +1,9 @@
 {
   "builds": [
-    { "src": "bin/build.sh", "use": "@vercel/static-build" }
+    {
+      "src": "bin/build.sh",
+      "use": "@vercel/static-build",
+      "output": "dist" 
+    }
   ]
 }
