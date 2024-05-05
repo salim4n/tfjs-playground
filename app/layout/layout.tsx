@@ -33,7 +33,7 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
         {
           label: 'Speech Recognition',
           key: 'Chapter3',
-          icon: <Popover content="Under construct, nothing done, empty page"><Link href={"/chapter3"}><SoundFilled/></Link></Popover>,
+          icon:<Link href={"/chapter3"}><SoundFilled/></Link>,
         },
         {
           label: 'Meteo Prediction',
