@@ -14,6 +14,8 @@
     "@ant-design/icons": "^5.3.6",
     "@ant-design/nextjs-registry": "^1.0.0",
     "@ant-design/plots": "^2.2.1",
+    "@react-three/drei": "^9.105.6",
+    "@react-three/fiber": "^8.16.6",
     "@tensorflow-models/coco-ssd": "^2.2.3",
     "@tensorflow-models/hand-pose-detection": "^2.0.1",
     "@tensorflow-models/speech-commands": "^0.5.4",
