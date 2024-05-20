@@ -1,6 +1,6 @@
 "use client"
 
-import {  CloudFilled, EyeTwoTone, HarmonyOSOutlined, HomeOutlined, RobotFilled, SoundFilled, WarningFilled } from "@ant-design/icons";
+import {  CloudFilled, EyeTwoTone, GithubFilled, HarmonyOSOutlined, HomeOutlined, RobotFilled, SoundFilled, WarningFilled } from "@ant-design/icons";
 import {  Layout, Menu, MenuProps, Popover, theme } from "antd";
 import { Content, Footer, Header } from "antd/es/layout/layout";
 import Link from "next/link";
@@ -73,7 +73,7 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
             {children}
         </Content>
         <Footer className="mt-auto text-center">
-        ©{new Date().getFullYear()} Created by Salim4n
+        ©{new Date().getFullYear()} Created by Salim4n <Link href={"https://github.com/salim4n"}><GithubFilled /></Link>
         </Footer>
     </Layout>
 );
