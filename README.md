@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+**English:**
 
-First, run the development server:
+# tfjs-playground
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Welcome to tfjs-playground! This project is a Next.js application integrated with TensorFlow.js. Here, you can explore the creation and usage of machine learning models using TensorFlow.js. The project is a work in progress but is well underway. Currently, we have completed models for fake data, Boston housing prediction, object detection using COCO-SSD, and speech command recognition. Additionally, work is ongoing for hand pose detection.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features:
+- Fake Data Model
+- Boston Housing Prediction Model
+- Object Detection with COCO-SSD
+- Speech Command Recognition
+- Hand Pose Detection (Work in Progress)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Usage:
+1. Clone this repository.
+2. Install dependencies: `npm install` 
+3. Run the development server: `npm run dev`
+4. Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Feel free to explore, contribute, or provide feedback!
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+**Français:**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# tfjs-playground
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Bienvenue sur tfjs-playground ! Ce projet est une application Next.js intégrée avec TensorFlow.js. Ici, vous pouvez explorer la création et l'utilisation de modèles d'apprentissage automatique avec TensorFlow.js. Le projet est en cours de réalisation mais est bien avancé. Actuellement, nous avons des modèles terminés pour les fausses données, la prédiction de logements à Boston, la détection d'objets à l'aide de COCO-SSD et la reconnaissance de commandes vocales. De plus, le travail est en cours pour la détection de poses de main.
 
-## Deploy on Vercel
+## Fonctionnalités :
+- Modèle de fausses données
+- Modèle de prédiction de logements à Boston
+- Détection d'objets avec COCO-SSD
+- Reconnaissance de commandes vocales
+- Détection de poses de main (en cours)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Utilisation :
+1. Clonez ce dépôt.
+2. Installez les dépendances : `npm install`
+3. Lancez le serveur de développement : `npm run dev`
+4. Ouvrez [http://localhost:3000](http://localhost:3000) dans votre navigateur pour voir l'application.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+N'hésitez pas à explorer, contribuer ou fournir des commentaires !
