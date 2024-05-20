@@ -3,7 +3,7 @@
 import * as tfvis from '@tensorflow/tfjs-vis'
 import * as tf from '@tensorflow/tfjs'
 import { Canvas } from "@react-three/fiber";
-import { Button, Card, Col, Row } from "antd";
+import { Button, Card, Col, Row, Tag } from "antd";
 import { OrbitControls } from "@react-three/drei";
 import Cartpole from "../component/cartpole";
 import { useEffect, useState } from "react";
@@ -26,8 +26,9 @@ export default function Chapter6() {
         <div>
             <Row>
             <Col span={24} className="m-4">
-            <Card title="Cartpole Game" actions={[<Button type='primary' onClick={() => visor.toggle()} children='Show Visor' />]} >
-            <h1>Cartpole Game</h1>
+            <Card title="Description" actions={[<Button type='primary' onClick={() => visor.toggle()} children='Show Visor' />]} >
+                <Tag color="orange">Tensorflow.js</Tag><Tag color="purple">Three Fiber</Tag>
+            <section className='m-4'>
             <p>
                 The Cartpole game is a classic reinforcement learning problem. The goal is to balance a pole on a cart that can move left or right. The environment is considered solved when the pole remains upright for 200 time steps.
             </p>
@@ -40,12 +41,14 @@ export default function Chapter6() {
             <p>
                 The Cartpole environment is implemented in the OpenAI Gym library. We will use the TensorFlow.js library to create a neural network model that learns to play the Cartpole game.
             </p>
+            </section>
             </Card>
             </Col>
             </Row>
             <Row>
             <Col span={24} className="m-4">
-                <Card title="Cartpole Game">
+                <Card title="Cartpole Game - You can zoom in, zoom out, move around the space, it's an orbit controls cam, with three js">
+                    <Tag color="blue">Wait to 3-5 minutes before model have learning something</Tag>
                 <Canvas>
                     <OrbitControls />
                     <ambientLight />

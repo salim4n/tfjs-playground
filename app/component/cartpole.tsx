@@ -22,8 +22,9 @@ export default function CartPole() {
   const [steps, setSteps] = useState(0);
   const [totalReward, setTotalReward] = useState(0);
   const [done, setDone] = useState(false);
-
+  
   const agent = useRef(new RLAgent());
+
   const rewardsHistory = useRef<{ reward: number, episode: number }[]>([]);
 
   useEffect(() => {
@@ -35,44 +36,55 @@ export default function CartPole() {
     }
   }, [state, done]);
 
+  useEffect(() => {
+    if (episode % 10 === 0) {
+      agent.current.updateTargetModel();
+    }
+  }, [episode]);
+
+  
+
   const reset = () => {
     setState({ x: 0, xDot: 0, theta: 0, thetaDot: 0 });
     setReward(0);
     setSteps(0);
     setDone(false);
+    agent.current.decayEpsilon();
   };
 
   const step = async () => {
     const { x, xDot, theta, thetaDot } = state;
     const action = await agent.current.act([x, xDot, theta, thetaDot]);
-
+  
     const force = action === 1 ? FORCE_MAG : -FORCE_MAG;
     const costheta = Math.cos(theta);
     const sintheta = Math.sin(theta);
-
+  
     const temp = (force + MASS_POLE * LENGTH * thetaDot * thetaDot * sintheta) / (MASS_CART + MASS_POLE);
     const thetaAcc = (GRAVITY * sintheta - costheta * temp) / (LENGTH * (4.0 / 3.0 - MASS_POLE * costheta * costheta / (MASS_CART + MASS_POLE)));
     const xAcc = temp - MASS_POLE * LENGTH * thetaAcc * costheta / (MASS_CART + MASS_POLE);
-
+  
     const newX = x + TAU * xDot;
     const newTheta = theta + TAU * thetaDot;
     const newXDot = xDot + TAU * xAcc;
     const newThetaDot = thetaDot + TAU * thetaAcc;
-
+  
     const newState = { x: newX, xDot: newXDot, theta: newTheta, thetaDot: newThetaDot };
-    const newReward = reward + (Math.abs(newTheta) < Math.PI / 15 ? 1 : -1);
-
+    
+    // Adjust reward function
+    const newReward = (Math.abs(newTheta) < Math.PI / 15 ? 1 : -1) - 0.01 * Math.abs(x);
+  
     setState(newState);
     setReward(newReward);
     setSteps(prev => prev + 1);
-
+  
     await agent.current.train([x, xDot, theta, thetaDot], action, newReward, [newX, newXDot, newTheta, newThetaDot], done);
-
+  
     if (Math.abs(newTheta) > Math.PI / 2 || steps >= MAX_STEPS) {
       setDone(true);
       setEpisode(episode + 1);
       setTotalReward(totalReward + newReward);
-
+  
       rewardsHistory.current.push({ reward: totalReward + newReward, episode: episode + 1 });
       const rewardsSurface = tfvis.visor().surface({ name: 'Rewards', tab: 'Training' });
       tfvis.render.linechart(
@@ -80,11 +92,11 @@ export default function CartPole() {
         { values: rewardsHistory.current.map(d => ({ x: d.episode, y: d.reward })), series: ['reward'] },
         { xLabel: 'Episode', yLabel: 'Reward', width: 400, height: 300 }
       );
-
+  
       reset();
     }
   };
-
+  
   useFrame(() => {
     if (cartRef.current && poleRef.current) {
       cartRef.current.position.x = state.x;
@@ -105,4 +117,3 @@ export default function CartPole() {
     </>
   );
 }
-
