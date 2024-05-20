@@ -26,8 +26,9 @@ export default function Chapter6() {
         <div>
             <Row>
             <Col span={24} className="m-4">
-            <Card title="Description" actions={[<Button key={1} type='primary' onClick={() => visor.toggle()} children='Show Visor' />]} >
+            <Card title="Description">
                 <Tag color="orange">Tensorflow.js</Tag><Tag color="purple">Three Fiber</Tag>
+                <Tag style={{cursor : "pointer"}} color="green" onClick={() => visor.toggle()}>Show Visor</Tag>
             <section className='m-4'>
             <p>
                 The Cartpole game is a classic reinforcement learning problem. The goal is to balance a pole on a cart that can move left or right. The environment is considered solved when the pole remains upright for 200 time steps.
