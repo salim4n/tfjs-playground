@@ -1,7 +1,7 @@
 "use client"
 
-import {  CloudFilled, EyeTwoTone, HarmonyOSOutlined, HomeOutlined, SoundFilled, WarningFilled } from "@ant-design/icons";
-import {  Layout, Menu, MenuProps, Popover, message, theme } from "antd";
+import {  CloudFilled, EyeTwoTone, HarmonyOSOutlined, HomeOutlined, RobotFilled, SoundFilled, WarningFilled } from "@ant-design/icons";
+import {  Layout, Menu, MenuProps, Popover, theme } from "antd";
 import { Content, Footer, Header } from "antd/es/layout/layout";
 import Link from "next/link";
 import React from "react";
@@ -45,6 +45,11 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
           disabled: true,
           key: 'Chapter4',
           icon: <Popover content="Under construct, model not ready for prediction, nav can't take too much data without crash, so I disabled this page actually"><Link href={"/chapter4"}><CloudFilled/></Link></Popover>,
+        },
+        {
+          label: 'Cartpole Game',
+          key: 'Chapter6',
+          icon : <Link href={"/chapter6"}><RobotFilled/></Link>,
         }
       ];
 

@@ -21,7 +21,6 @@ export default function Chapter3() {
         await tf.setBackend("webgl");
         const recognizer = speechCommands.create("BROWSER_FFT");
         await recognizer.ensureModelLoaded();
-        console.log(recognizer.wordLabels());
         return recognizer;
     }
 

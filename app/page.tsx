@@ -5,7 +5,7 @@ import * as tfvis from '@tensorflow/tfjs-vis'
 import { Button, Spin, Table } from 'antd';
 import {  useEffect, useState } from 'react'
 import { generateColumns } from './utils/utils';
-import {  drawHistogram, drawModelSummary, drawTable, drawScatterPlot, drawLine, drawBarChartOfEachFeatureOfOneDataset, drawConfusionMatrix, drawHeatMap } from './utils/visor/draw';
+import {  drawHistogram, drawModelSummary, drawTable, drawScatterPlot, drawLine, drawBarChartOfEachFeatureOfOneDataset, drawHeatMap } from './utils/visor/draw';
 
 
 export default function Home() {

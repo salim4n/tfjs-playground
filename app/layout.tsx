@@ -35,7 +35,8 @@ export default function RootLayout({
         colorBgContainer: '#f0f0f0',
       },
     }}
-  ></ConfigProvider>
+  >  
+  </ConfigProvider>
       <body className={inter.className}>
         <AntdRegistry>
           <PageLayout>
