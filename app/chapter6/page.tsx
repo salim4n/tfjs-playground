@@ -26,7 +26,7 @@ export default function Chapter6() {
         <div>
             <Row>
             <Col span={24} className="m-4">
-            <Card title="Description" actions={[<Button type='primary' onClick={() => visor.toggle()} children='Show Visor' />]} >
+            <Card title="Description" actions={[<Button key={1} type='primary' onClick={() => visor.toggle()} children='Show Visor' />]} >
                 <Tag color="orange">Tensorflow.js</Tag><Tag color="purple">Three Fiber</Tag>
             <section className='m-4'>
             <p>
