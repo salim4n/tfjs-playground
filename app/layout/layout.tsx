@@ -1,6 +1,6 @@
 "use client"
 
-import {  CloudFilled, EyeTwoTone, GithubFilled, HarmonyOSOutlined, HomeOutlined, RobotFilled, SoundFilled, WarningFilled } from "@ant-design/icons";
+import {  CloudFilled, DollarCircleFilled, EyeTwoTone, GithubFilled, HarmonyOSOutlined, HomeOutlined, RobotFilled, RobotOutlined, SoundFilled, WarningFilled } from "@ant-design/icons";
 import {  Layout, Menu, MenuProps, Popover, theme } from "antd";
 import { Content, Footer, Header } from "antd/es/layout/layout";
 import Link from "next/link";
@@ -44,13 +44,24 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
           label: 'Meteo Prediction',
           disabled: true,
           key: 'Chapter4',
-          icon: <Popover content="Under construct, model not ready for prediction, nav can't take too much data without crash, so I disabled this page actually"><Link href={"/chapter4"}><CloudFilled/></Link></Popover>,
+          icon: <Popover content="Under construct, model not ready for prediction, nav can't take too much data without crash, so I disabled this page actually"><CloudFilled/></Popover>,
+        },
+        {
+          label: 'Trading Bot',
+          key: 'Chapter8',
+          icon :<Link href={'/chapter8'} ><DollarCircleFilled/></Link>,
         },
         {
           label: 'Cartpole Game',
           key: 'Chapter6',
           icon : <Link href={"/chapter6"}><RobotFilled/></Link>,
-        }
+        },
+        {
+          label: 'Obstacle Avoidance',
+          key: 'Chapter7',
+          disabled: true,
+          icon :<Popover content="Environment 3D in construction ..."><RobotOutlined/></Popover>,
+        },
       ];
 
     return (
