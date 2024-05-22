@@ -46,7 +46,9 @@ const BATCH_SIZE = 32;
             <OrbitControls />
             <ambientLight />
             <pointLight position={[10, 10, 10]} />
-            <Text children={'HERE TRAINING VISUALISATION IN 3D WILL COME'} color={"gold"}></Text>
+            <Text color={"gold"}>
+              HERE TRAINING VISUALISATION IN 3D WILL COME
+            </Text>
           </Canvas>
         </Card>
         </Col>
