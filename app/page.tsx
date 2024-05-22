@@ -104,9 +104,9 @@ export default function Home() {
             <OrbitControls />
             <ambientLight />
             <pointLight position={[10, 10, 10]} />
-            {model ?
+            {/* {model ?
             <PointsCanvas data={model.history}  />
-            :
+            : */}
             <Text
             position={[0, 0, 0]}
             fontSize={1}
@@ -115,7 +115,8 @@ export default function Home() {
             anchorY="middle"
           >
             3D Visualisation of Training Model to come...
-          </Text>}
+          </Text>
+          {/* } */}
            
           </Canvas>
         </Card>
