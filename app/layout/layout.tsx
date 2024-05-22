@@ -1,6 +1,6 @@
 "use client"
 
-import {  CloudFilled, EyeTwoTone, GithubFilled, HarmonyOSOutlined, HomeOutlined, RobotFilled, SoundFilled, WarningFilled } from "@ant-design/icons";
+import {  CloudFilled, DollarCircleFilled, EyeTwoTone, GithubFilled, HarmonyOSOutlined, HomeOutlined, RobotFilled, RobotOutlined, SoundFilled, WarningFilled } from "@ant-design/icons";
 import {  Layout, Menu, MenuProps, Popover, theme } from "antd";
 import { Content, Footer, Header } from "antd/es/layout/layout";
 import Link from "next/link";
@@ -21,11 +21,6 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
           icon: <Link href={"/"}><HomeOutlined /></Link>,
         },
         {
-          label: 'Boston Housing',
-          key: 'Chapter1',
-          icon: <Popover content="Under construct, model not created"><Link href={"/chapter1"}><WarningFilled/></Link></Popover>,
-        },
-        {
           label: 'Object Detection',
           key: 'Chapter2',
           icon: <Link href={"/chapter2"}><EyeTwoTone /></Link>,
@@ -41,16 +36,21 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
           icon: <Link href={"/chapter5"}><HarmonyOSOutlined /></Link>,
         },
         {
-          label: 'Meteo Prediction',
-          disabled: true,
-          key: 'Chapter4',
-          icon: <Popover content="Under construct, model not ready for prediction, nav can't take too much data without crash, so I disabled this page actually"><Link href={"/chapter4"}><CloudFilled/></Link></Popover>,
+          label: 'Trading Bot',
+          key: 'Chapter8',
+          icon :<Link href={'/chapter8'} ><DollarCircleFilled/></Link>,
         },
         {
           label: 'Cartpole Game',
           key: 'Chapter6',
           icon : <Link href={"/chapter6"}><RobotFilled/></Link>,
-        }
+        },
+        {
+          label: 'Obstacle Avoidance',
+          key: 'Chapter7',
+          disabled: true,
+          icon :<Popover content="Environment 3D in construction ..."><RobotOutlined/></Popover>,
+        },
       ];
 
     return (
