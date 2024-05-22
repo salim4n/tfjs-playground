@@ -2,10 +2,12 @@
 
 import * as tf from '@tensorflow/tfjs'
 import * as tfvis from '@tensorflow/tfjs-vis'
-import { Button, Spin, Table } from 'antd';
+import { Button, Card, Spin, Table, Tag } from 'antd';
 import {  useEffect, useState } from 'react'
-import { generateColumns } from './utils/utils';
 import {  drawHistogram, drawModelSummary, drawTable, drawScatterPlot, drawLine, drawBarChartOfEachFeatureOfOneDataset, drawHeatMap } from './utils/visor/draw';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls, Points, Text } from '@react-three/drei';
+import { PointsCanvas } from './component/point';
 
 
 export default function Home() {
@@ -96,7 +98,27 @@ export default function Home() {
           </>
         )}
         <Button type='primary' onClick={() => visor.toggle()} className='m-3'>Toggle Visor</Button>
-        <Table dataSource={data} columns={generateColumns(data)} />
+        <Card title="Check Visor to see DataTable, plz run training model" className='w-100' bordered={false}>
+          <Tag color="orange">Tensorflow.js</Tag><Tag color="purple">We gonna use a,b,c,d to predict e</Tag>
+          <Canvas className='bg-gradient-to-r from-gray-500 to-slate-900 w-full'>
+            <OrbitControls />
+            <ambientLight />
+            <pointLight position={[10, 10, 10]} />
+            {model ?
+            <PointsCanvas data={model.history}  />
+            :
+            <Text
+            position={[0, 0, 0]}
+            fontSize={1}
+            color="white"
+            anchorX="center"
+            anchorY="middle"
+          >
+            3D Visualisation of Training Model to come...
+          </Text>}
+           
+          </Canvas>
+        </Card>
         </>
       ):(
         <Button type='primary' onClick={run}>

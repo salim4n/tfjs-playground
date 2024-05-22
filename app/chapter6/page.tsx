@@ -26,7 +26,7 @@ export default function Chapter6() {
         <div>
             <Row>
             <Col span={24} className="m-4">
-            <Card title="Description">
+            <Card title="Cartpole Game in Web Navigator (WebGL)">
                 <Tag color="orange">Tensorflow.js</Tag><Tag color="purple">Three Fiber</Tag>
                 <Tag style={{cursor : "pointer"}} color="green" onClick={() => visor.toggle()}>Show Visor</Tag>
             <section className='m-4'>
@@ -42,15 +42,16 @@ export default function Chapter6() {
             <p>
                 The Cartpole environment is implemented in the OpenAI Gym library. We will use the TensorFlow.js library to create a neural network model that learns to play the Cartpole game.
             </p>
+            <Tag color="blue" className='mb-2'>Wait to 3-5 minutes before model have learning something</Tag>
             </section>
             </Card>
             </Col>
             </Row>
             <Row>
-            <Col span={24} className="m-4">
-                <Card title="Cartpole Game - You can zoom in, zoom out, move around the space, it's an orbit controls cam, with three js">
-                    <Tag color="blue">Wait to 3-5 minutes before model have learning something</Tag>
-                <Canvas>
+            <Col span={24} className="m-4 ">
+                <Card title="Cartpole Game - You can zoom in, zoom out, move around the space, it's an orbit controls cam, with three js"
+                className='bg-gradient-to-r from-red-500 to-blue-500 '>
+                <Canvas className="bg-gradient-to-r from-red-500 to-blue-500 rounded-lg">
                     <OrbitControls />
                     <ambientLight />
                     <pointLight position={[10, 10, 10]} />

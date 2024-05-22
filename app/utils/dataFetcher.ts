@@ -13,7 +13,7 @@ export type StockData = {
     volume: number;
   }
 
-export const fetchStockData = async (symbol, interval = 'minute', fromDate, toDate) => {
+export const fetchStockData = async (symbol, interval = 'hour', fromDate, toDate) => {
     const url = `https://api.polygon.io/v2/aggs/ticker/${symbol}/range/1/${interval}/${fromDate}/${toDate}?apiKey=${api_key}`;
     try {
     const response = api_key && await fetch(url);

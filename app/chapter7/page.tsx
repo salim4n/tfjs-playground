@@ -28,7 +28,7 @@ export default function Page() {
         <div>
             <Row>
             <Col span={24} className="m-4">
-            <Card title="Description">
+            <Card >
                 <Tag color="orange">Tensorflow.js</Tag><Tag color="purple">Three Fiber</Tag>
                 <Tag style={{cursor : "pointer"}} color="green" onClick={() => visor.toggle()}>Show Visor</Tag>
             </Card>

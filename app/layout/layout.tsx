@@ -21,11 +21,6 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
           icon: <Link href={"/"}><HomeOutlined /></Link>,
         },
         {
-          label: 'Boston Housing',
-          key: 'Chapter1',
-          icon: <Popover content="Under construct, model not created"><Link href={"/chapter1"}><WarningFilled/></Link></Popover>,
-        },
-        {
           label: 'Object Detection',
           key: 'Chapter2',
           icon: <Link href={"/chapter2"}><EyeTwoTone /></Link>,
@@ -39,12 +34,6 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
           label: 'Hand Pose Detection',
           key: 'Chapter5',
           icon: <Link href={"/chapter5"}><HarmonyOSOutlined /></Link>,
-        },
-        {
-          label: 'Meteo Prediction',
-          disabled: true,
-          key: 'Chapter4',
-          icon: <Popover content="Under construct, model not ready for prediction, nav can't take too much data without crash, so I disabled this page actually"><CloudFilled/></Popover>,
         },
         {
           label: 'Trading Bot',

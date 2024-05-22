@@ -3,7 +3,7 @@
 import * as tfvis from '@tensorflow/tfjs-vis'
 import * as tf from '@tensorflow/tfjs'
 import { Row, Col, Card, Tag } from "antd"
-import { use, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import TradingEnv from '../component/tradingEnv'
 
 
@@ -24,7 +24,7 @@ export default function Chapter8(){
 <div>
             <Row>
             <Col span={24} className="m-4">
-            <Card title="Description">
+            <Card title="Model Implementation and Environment logic not ready to be display ...">
                 <Tag color="orange">Tensorflow.js</Tag><Tag color="purple">Recharts</Tag>
                 <Tag style={{cursor : "pointer"}} color="green" onClick={() => visor.toggle()}>Show Visor</Tag>
             </Card>
@@ -32,7 +32,7 @@ export default function Chapter8(){
             </Row>
             <Row>
             <Col span={24} className="m-4">
-            <Card title="" style={{ height: '500px', display: 'flex' }}>
+            <Card title="" style={{ height: '600px', display: 'flex' }}>
               <TradingEnv />
                 </Card>
             </Col>
