@@ -65,7 +65,6 @@ export default function Home() {
 
   async function createModel() {
     setLoading(true)
-    const { xs, ys } = tf.tidy(() => {
       const model = tf.sequential()
       model.add(
         tf.layers.dense({ units: 64, inputShape: [4], activation: "relu" })
@@ -78,8 +77,6 @@ export default function Home() {
       const labels = data.map((d: any) => d.e)
       const xs = tf.tensor2d(features)
       const ys = tf.tensor2d(labels, [labels.length, 1])
-      return { xs, ys }
-    })
     await model.fit(xs, ys, {
       batchSize: 32,
       epochs: 20,
@@ -90,6 +87,7 @@ export default function Home() {
     })
     setModel(model)
     setLoading(false)
+    tf.dispose([xs, ys])
   }
 
   async function predict() {
